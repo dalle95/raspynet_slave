@@ -1,0 +1,27 @@
+# Byte-compiled / compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Python env
+venv/
+env/
+
+# Logs and databases
+*.log
+*.sqlite
+
+# Output of pyinstaller
+dist/
+build/
+
+# Virtualenv
+.venv/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# IDE specific
+.idea/
+.vscode/
