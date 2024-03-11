@@ -2,9 +2,7 @@
 
 import sys
 import time
-import ubinascii
-import threading
-import network
+import json
 import machine
 from umqtt.simple import MQTTClient
 
@@ -55,9 +53,19 @@ def main(CONFIG, ip):
             # Leggi la temperatura utilizzando la funzione del modulo 'pin'
             data = pin.read_temperature()
 
+            json_message = {
+                "client": CONFIG['client_id'],
+                "sensore": "Temperatura",
+                "valore": data
+            }
+
+            # Serializza il JSON in una stringa
+            message_string = json.dumps(json_message)
+
             # Pubblica il dato sulla temperatura sul topic MQTT
-            mqttClient.publish(CONFIG['topic'], str(data).encode())
-            print('{}/{} | Message: {}'.format(CONFIG['topic'], CONFIG['client_id'], data))
+            mqttClient.publish(CONFIG['topic'], str(message_string).encode())
+
+            print('Topic: {} | Message: {}'.format(CONFIG['topic'], message_string))
 
             # Aggiorna il timestamp dell'ultima pubblicazione
             last_publish = time.time()
